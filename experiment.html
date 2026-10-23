@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Experiment plan — CurioLab</title>
+  <meta name="description" content="Explore CurioLab’s experiment notebook and see how a test plan is separated from completed research and verified results."><link rel="stylesheet" href="styles.css">  <link rel="canonical" href="https://effulgent-trifle-d26725.netlify.app/experiment.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CurioLab">
+  <meta property="og:title" content="Experiment plan — CurioLab">
+  <meta property="og:description" content="Explore CurioLab’s experiment notebook and see how a test plan is separated from completed research and verified results.">
+  <meta property="og:url" content="https://effulgent-trifle-d26725.netlify.app/experiment.html">
+  <meta name="twitter:card" content="summary">
+</head>
+<body><header class="site-header wrap"><a class="brand" href="index.html"><span class="brand-mark">✳</span><span>curio<span class="brand-light">lab</span></span></a><a class="blog-nav-link" href="blog.html">Blog ↗</a><a class="header-cta" href="index.html#experiments">← Back to experiments</a></header>
+<main class="wrap" style="max-width:850px;padding-top:65px;padding-bottom:100px">
+<div class="eyebrow"><span class="eyebrow-line"></span> EXPERIMENT NOTEBOOK</div>
+<h1 id="title" style="font:800 clamp(36px,6vw,58px)/1.1 Manrope,sans-serif;letter-spacing:-.05em">A test worth running.</h1>
+<p id="intro" style="color:#a5adbd;font-size:16px;line-height:1.8;max-width:700px"></p>
+<div class="note-banner"><span class="note-icon">i</span><p><b>Transparency note:</b> This page is a test plan, not a completed review. No results or winners are claimed until the test is performed and documented.</p></div>
+<section class="section" style="padding-top:35px"><h2 style="font-size:28px">The method</h2><ol id="steps" style="color:#b4bbca;line-height:2.1;padding-left:22px"></ol><h2 style="font-size:28px;margin-top:38px">What we'll measure</h2><div id="metrics" class="discovery-grid" style="grid-template-columns:repeat(2,1fr)"></div><p style="color:#7f899b;font-size:12px;margin-top:30px">When publishing the completed experiment, add the test date, tool versions/plans, exact prompt or task, screenshots, limitations and any affiliate disclosures.</p><a class="button button-primary" href="index.html#experiments">Back to the lab ↗</a></section>
+</main><script>
+const plans={
+'free-vs-paid':{title:"Can a free AI tool do a paid tool's job?",intro:"We'll give a free-tier tool and a paid tool the same realistic writing brief, then compare the output and effort needed to make it usable.",steps:["Choose one task and write a clear scoring rubric before testing.","Run the same prompt and constraints in both tools.","Check accuracy, clarity, usefulness and any unsupported claims.","Record editing time, plan limits and the final cost.","Publish the outputs and limitations side by side."],metrics:["Output quality","Editing time","Factual accuracy","Cost and usage limits"]},
+'weekly-report':{title:"Can you automate a weekly report in 20 minutes?",intro:"We'll map a small reporting task and see whether a simple workflow can reduce repetitive steps without hiding errors or creating extra maintenance.",steps:["Choose a repeatable report with non-sensitive sample data.","Record the manual steps and time required.","Build a small workflow using tools with free tiers where possible.","Test normal inputs, missing data and failure cases.","Compare total setup and maintenance time with the manual process."],metrics:["Setup time","Time per run","Error handling","Ongoing limits and cost"]},
+'same-prompt':{title:"Same prompt, three tools: what actually changes?",intro:"We'll use one brief across three creative tools and compare the results using consistent criteria, rather than picking a winner based on one attractive output.",steps:["Choose a task supported by all three tools.","Use the same prompt, dimensions and constraints where possible.","Generate several outputs and record settings.","Score consistency, control, usability and revision effort.","Show examples, trade-offs and cases where each tool performs poorly."],metrics:["Consistency","Control and editing","Output usefulness","Free-tier restrictions"]}
+};
+const id = new URLSearchParams(location.search).get('id') || 'free-vs-paid';
+const p = plans[id];
+const title = document.querySelector('#title');
+const intro = document.querySelector('#intro');
+const steps = document.querySelector('#steps');
+const metrics = document.querySelector('#metrics');
+const note = document.querySelector('.note-banner');
+const methodSection = document.querySelector('.section');
+if (!p) {
+  document.title = 'Experiment plan not found — CurioLab';
+  title.textContent = 'Experiment plan not found';
+  intro.textContent = 'That experiment link does not match a plan in the current CurioLab collection. Return to the experiment board to choose an available plan.';
+  if (note) note.hidden = true;
+  if (methodSection) methodSection.hidden = true;
+} else {
+  document.title = p.title + ' — CurioLab';
+  title.textContent = p.title;
+  intro.textContent = p.intro;
+  steps.replaceChildren(...p.steps.map((step) => {
+    const item = document.createElement('li');
+    item.textContent = step;
+    return item;
+  }));
+  metrics.replaceChildren(...p.metrics.map((metric, i) => {
+    const card = document.createElement('div');
+    card.className = 'discovery-card discovery-purple';
+    card.style.minHeight = '110px';
+    const kicker = document.createElement('span');
+    kicker.className = 'card-kicker';
+    kicker.textContent = 'MEASURE ' + String(i + 1).padStart(2, '0');
+    const heading = document.createElement('h3');
+    heading.style.fontSize = '18px';
+    heading.style.marginTop = '20px';
+    heading.textContent = metric;
+    card.append(kicker, heading);
+    return card;
+  }));
+}
+</script></body></html>

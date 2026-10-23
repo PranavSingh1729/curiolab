@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Estimate whether an AI-assisted workflow saves time after review and setup costs. Free calculator with adjustable assumptions; no data is submitted.">
+  <meta name="theme-color" content="#0b0d12">
+  <title>AI Workflow Savings Calculator — CurioLab</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="canonical" href="https://effulgent-trifle-d26725.netlify.app/ai-workflow-savings-calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CurioLab">
+  <meta property="og:title" content="AI Workflow Savings Calculator — CurioLab">
+  <meta property="og:description" content="Estimate time saved by an AI-assisted workflow after review and setup time.">
+  <meta property="og:url" content="https://effulgent-trifle-d26725.netlify.app/ai-workflow-savings-calculator.html">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+  <div class="announcement"><span class="pulse" aria-hidden="true"></span> CURIOLAB TOOLS <span class="announcement-dot">·</span> Estimate before you automate</div>
+  <header class="site-header wrap">
+    <a class="brand" href="index.html" aria-label="CurioLab home"><span class="brand-mark" aria-hidden="true">✳</span><span>curio<span class="brand-light">lab</span></span></a>
+    <nav class="nav" id="main-navigation" aria-label="Main navigation"><a href="index.html#discover">Discover</a><a href="index.html#experiments">Experiments</a><a href="index.html#field-guides">Field guides</a><a href="blog.html">Blog</a></nav>
+    <a class="header-cta" href="index.html">Back to CurioLab <span>↗</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-navigation">☰</button>
+  </header>
+  <main class="wrap article-main">
+    <div class="eyebrow"><span class="eyebrow-line"></span> FREE INTERACTIVE TOOL</div>
+    <h1>Does this AI workflow <span class="gradient-text">actually save time?</span></h1>
+    <p class="article-lede">Estimate the time saved after accounting for review and setup. Use your own measurements from a small trial rather than relying on a vendor's best-case claim.</p>
+    <div class="note-banner"><span class="note-icon" aria-hidden="true">i</span><p><b>Estimate, not a promise.</b> Results depend on task complexity, error rates, and how much checking the output needs. This calculator runs in your browser; the values you enter are not sent to CurioLab by this page.</p></div>
+
+    <section class="calculator-panel" aria-labelledby="inputs-heading">
+      <h2 id="inputs-heading">Your workflow inputs</h2>
+      <p class="calculator-intro">Start with a typical week. Change any value to update the estimate.</p>
+      <div class="calculator-grid">
+        <label class="calc-field"><span>Tasks per week</span><input id="tasks" type="number" min="0" max="10000" step="1" value="10"></label>
+        <label class="calc-field"><span>Manual minutes per task</span><input id="manual" type="number" min="0" max="10000" step="1" value="30"></label>
+        <label class="calc-field"><span>AI-assisted minutes per task</span><input id="ai" type="number" min="0" max="10000" step="1" value="12"></label>
+        <label class="calc-field"><span>Review / correction minutes per task</span><input id="review" type="number" min="0" max="10000" step="1" value="8"></label>
+        <label class="calc-field"><span>One-time setup hours</span><input id="setup" type="number" min="0" max="10000" step="0.5" value="3"></label>
+        <label class="calc-field"><span>Hours to evaluate</span><input id="period" type="number" min="1" max="520" step="1" value="4"></label>
+      </div>
+      <div class="calculator-results" aria-live="polite" aria-atomic="true">
+        <div class="calc-result"><span>Weekly time before</span><strong id="beforeResult">5.0 h</strong></div>
+        <div class="calc-result"><span>Weekly time with AI + review</span><strong id="afterResult">3.3 h</strong></div>
+        <div class="calc-result calc-result-highlight"><span>Net weekly time saved</span><strong id="savedResult">1.7 h</strong></div>
+        <div class="calc-result"><span>Setup payback estimate</span><strong id="paybackResult">1.8 weeks</strong></div>
+      </div>
+      <p id="resultNote" class="calculator-note">With these assumptions, the workflow saves time after review. The setup payback estimate compares setup hours with net weekly time saved.</p>
+      <button type="button" class="button button-secondary" id="resetCalculator">Reset example values</button>
+    </section>
+
+    <h2>How the estimate works</h2>
+    <ul>
+      <li><b>Manual time:</b> tasks per week × manual minutes per task.</li>
+      <li><b>AI-assisted time:</b> tasks per week × (AI-assisted minutes + review/correction minutes).</li>
+      <li><b>Net weekly savings:</b> manual time minus AI-assisted time. A negative result means the tested workflow currently takes longer.</li>
+      <li><b>Setup payback:</b> one-time setup hours divided by positive weekly savings. If there are no positive savings, payback is not reached under these assumptions.</li>
+    </ul>
+    <h2>Use a small real-world test</h2>
+    <p>Track several representative tasks, including difficult examples and failures. Measure the time spent prompting, reviewing, fixing errors, and handling exceptions. Use the average only if the tasks are reasonably comparable, and revisit the estimate when the workflow or tool changes.</p>
+    <p>Time saved is not automatically money saved. This calculator does not include subscription costs, integration fees, privacy risks, quality differences, or the cost of mistakes. Add those separately before making a business decision.</p>
+    <p>Related guides: <a href="blog-ai-tool-test-template.html">compare AI tools with a consistent method</a>, <a href="blog-verify-ai-answer.html">verify AI answers</a>, and <a href="ai-output-review-worksheet.html">download the AI output review worksheet</a>.</p>
+    <div class="note-banner"><span class="note-icon" aria-hidden="true">✳</span><p><b>CurioLab principle:</b> measure the complete workflow, including human checking—not just the seconds it takes AI to generate a first draft.</p></div>
+    <p><a class="text-link" href="index.html#field-guides">← Back to CurioLab field guides</a></p>
+  </main>
+  <footer class="site-footer wrap"><p>CurioLab · Practical tests, not hype.</p><div><a href="about.html">About</a><a href="editorial-policy.html">Editorial policy</a><a href="disclosure.html">Disclosure</a><a href="privacy.html">Privacy</a></div></footer>
+  <style>
+    .calculator-panel{margin:32px 0 48px;padding:clamp(20px,4vw,34px);background:var(--panel);border:1px solid var(--line);border-radius:22px}
+    .calculator-panel h2{margin-top:0}.calculator-intro,.calculator-note{color:var(--muted);line-height:1.8}
+    .calculator-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:24px 0}
+    .calc-field{display:flex;flex-direction:column;gap:8px;color:var(--muted);font-size:14px}
+    .calc-field input{width:100%;box-sizing:border-box;padding:13px 14px;background:var(--bg);border:1px solid var(--line);border-radius:10px;color:var(--text);font:inherit}
+    .calc-field input:focus{outline:2px solid var(--purple);outline-offset:2px}
+    .calculator-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:24px 0}
+    .calc-result{display:flex;flex-direction:column;gap:10px;padding:18px;background:var(--panel2);border:1px solid var(--line);border-radius:14px}
+    .calc-result span{font-size:13px;color:var(--muted)}.calc-result strong{font-size:clamp(22px,3vw,30px);letter-spacing:-.03em}
+    .calc-result-highlight{border-color:var(--purple)}.calculator-note{font-size:14px}
+    .button-secondary{margin-top:6px;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer}
+    @media(max-width:600px){.calculator-grid,.calculator-results{grid-template-columns:1fr}}
+  </style>
+  <script>
+    (() => {
+      const ids = ["tasks","manual","ai","review","setup","period"];
+      const fields = Object.fromEntries(ids.map(id => [id, document.getElementById(id)]));
+      const defaults = {tasks:10, manual:30, ai:12, review:8, setup:3, period:4};
+      const number = id => Math.max(0, Number(fields[id].value) || 0);
+      const fmt = value => `${value.toFixed(1)} h`;
+      function calculate() {
+        const tasks = number("tasks");
+        const before = tasks * number("manual") / 60;
+        const after = tasks * (number("ai") + number("review")) / 60;
+        const saved = before - after;
+        const setup = number("setup");
+        const period = Math.max(1, number("period"));
+        document.getElementById("beforeResult").textContent = fmt(before);
+        document.getElementById("afterResult").textContent = fmt(after);
+        document.getElementById("savedResult").textContent = `${saved > 0 ? "+" : ""}${fmt(saved)}`;
+        document.getElementById("paybackResult").textContent = saved > 0 ? `${(setup / saved).toFixed(1)} weeks` : "Not reached";
+        let note;
+        if (saved > 0) {
+          const total = saved * period - setup;
+          note = `Under these assumptions, the workflow saves ${fmt(saved)} per week before setup is accounted for. Over ${period} week(s), net savings after setup are ${fmt(total)}. This is a time estimate, not a guarantee of financial savings.`;
+        } else if (saved < 0) {
+          note = `The AI-assisted workflow currently takes ${fmt(Math.abs(saved))} more per week once review is included. Try measuring a different task or improving the workflow before scaling it.`;
+        } else {
+          note = "There is no weekly time difference under these assumptions, so setup time is not recovered through time savings.";
+        }
+        document.getElementById("resultNote").textContent = note;
+      }
+      ids.forEach(id => fields[id].addEventListener("input", calculate));
+      document.getElementById("resetCalculator").addEventListener("click", () => {
+        ids.forEach(id => fields[id].value = defaults[id]);
+        calculate();
+        fields.tasks.focus();
+      });
+      calculate();
+    })();
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>

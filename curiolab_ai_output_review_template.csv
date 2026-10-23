@@ -1,0 +1,19 @@
+﻿CurioLab AI Output Review Template,,,
+Use this blank worksheet to evaluate one output against a source. It contains no experimental results.,,,
+Project / task,,Review date,
+Source material / version,,AI tool / model version (if known),
+Exact prompt or task instruction,,Reviewer,
+Criterion,Weight (%),Rating (1-5),Evidence / notes
+Accuracy and source fidelity,35,,Are claims supported? Are qualifications preserved?
+Coverage,25,,"Are important sections, findings, and limitations included?"
+Clarity,15,,Is the answer understandable and precise?
+Organization,10,,Is the structure logical and easy to scan?
+Revision usefulness,15,,Are issues and actionable corrections identified?
+Weighted contribution,,,For each criterion: (rating / 5) * weight
+Weighted total out of 100,,,Sum the five weighted contributions; maximum is 100.
+Important omissions,,,
+Unsupported claims / citations to verify,,,
+Changes made after review,,,
+Limitations and uncertainty,,,
+Disclosure / conflicts of interest,,,
+"Note: Ratings are reviewer judgments, not objective truth. Record evidence for each score; mark unknown metadata as unknown rather than guessing.",,,

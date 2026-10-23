@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Start Here: CurioLab AI Learning & Evaluation Tools</title>
+  <meta name="description" content="Start with CurioLab's practical workflow for prompting, reviewing, and comparing AI outputs, with transparent guidance and evaluation limits.">
+  <link rel="canonical" href="https://effulgent-trifle-d26725.netlify.app/start-here.html">
+  <meta property="og:title" content="Start Here | CurioLab">
+  <meta property="og:description" content="A guided route through CurioLab's AI prompt and evaluation tools.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .start-wrap{max-width:900px;margin:0 auto}
+    .start-wrap p,.start-wrap li{line-height:1.75}
+    .route-list{list-style:none;padding:0;counter-reset:route}
+    .route-list li{counter-increment:route;display:grid;grid-template-columns:3rem 1fr;gap:1rem;margin:1rem 0;padding:1rem;border:1px solid var(--border,#ccc);border-radius:12px}
+    .route-list li:before{content:counter(route);width:2.5rem;height:2.5rem;border:1px solid var(--border,#ccc);border-radius:50%;display:grid;place-items:center;font-weight:700}
+    .trust-note{padding:1rem;border:1px solid var(--border,#ccc);border-radius:12px;margin:1.2rem 0}
+  </style>
+</head>
+<body>
+<header class="site-header"><div class="container header-inner">
+  <a class="site-logo" href="index.html">CurioLab</a>
+  <nav class="site-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="experiment-001-results.html">Experiment #001</a></nav>
+</div></header>
+<main class="container start-wrap">
+  <section class="page-hero">
+    <p class="eyebrow">Start here</p>
+    <h1>A practical workflow for working with AI</h1>
+    <p>CurioLab helps you structure prompts, inspect AI-generated answers, and compare outputs using explicit criteria. Start with the task you need to complete, then use the tools below to make your process more consistent.</p>
+  </section>
+  <section class="content-section">
+    <h2>Follow this workflow</h2>
+    <ol class="route-list">
+      <li><div><h2>Write a clearer prompt</h2><p>Define the task, audience, context, constraints, and output format. Ask the model to label uncertainty and avoid inventing missing details.</p><p><a href="ai-prompt-builder.html">Open the AI Prompt Builder →</a></p></div></li>
+      <li><div><h2>Review one answer</h2><p>Score accuracy, completeness, source fidelity, clarity, and instruction-following. Record concrete evidence for important ratings.</p><p><a href="ai-output-scorecard.html">Open the AI Output Review Scorecard →</a></p></div></li>
+      <li><div><h2>Compare multiple answers</h2><p>Use the same task and reference material for each response. Score with the same rubric, then export the record for later review.</p><p><a href="ai-comparison-report.html">Open the AI Comparison Report Builder →</a></p></div></li>
+      <li><div><h2>Read the verification guide</h2><p>Learn a repeatable way to check claims, find omissions, and separate evidence from assumptions.</p><p><a href="guide-evaluate-ai-answers.html">Read How to Evaluate an AI Answer →</a></p></div></li>
+    </ol>
+  </section>
+  <section class="content-section">
+    <h2>What CurioLab's tools do—and don't do</h2>
+    <p>The tools organize your own review and calculate results from the values you enter. They do not independently verify factual claims, certify an AI system, or guarantee that an answer is safe or correct. A higher score means an output scored better under your selected rubric; it is not proof of truth.</p>
+    <div class="trust-note">
+      <h3>For fair comparisons</h3>
+      <ul>
+        <li>Use the same prompt, source material, and requirements for each model.</li>
+        <li>Keep evidence notes and disclose how you chose criteria and weights.</li>
+        <li>Record model versions and run dates when known; mark unknown details as unknown.</li>
+        <li>Do not claim that a small informal test proves one AI is universally best.</li>
+      </ul>
+    </div>
+    <h2>Transparency and site information</h2>
+    <p>Before relying on any result, read the site's <a href="editorial-policy.html">Editorial Policy</a>, <a href="disclosure.html">Disclosure</a>, and <a href="privacy.html">Privacy</a> pages. The Experiment #001 page describes its own scope and limitations.</p>
+    <p><a href="experiment-001-results.html">Read Experiment #001 results and limitations →</a></p>
+  </section>
+</main>
+<footer class="site-footer"><div class="container"><p>CurioLab — practical experiments and tools for evaluating AI.</p><p><a href="privacy.html">Privacy</a> · <a href="editorial-policy.html">Editorial Policy</a> · <a href="disclosure.html">Disclosure</a></p></div></footer>
+</body>
+</html>

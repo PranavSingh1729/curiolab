@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A reusable prompt and scorecard for comparing AI tools on the same task, with matched inputs, source checks, editing time, and transparent limitations.">
+  <meta name="theme-color" content="#0b0d12">
+  <title>A practical template for comparing AI tools — CurioLab</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="canonical" href="https://effulgent-trifle-d26725.netlify.app/blog-ai-tool-test-template.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CurioLab">
+  <meta property="og:title" content="A practical template for comparing AI tools — CurioLab">
+  <meta property="og:description" content="A reusable prompt and scorecard for comparing AI tools on the same task.">
+  <meta property="og:url" content="https://effulgent-trifle-d26725.netlify.app/blog-ai-tool-test-template.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "A practical template for comparing AI tools",
+    "description": "A reusable prompt and scorecard for comparing AI tools on the same task.",
+    "mainEntityOfPage": "https://effulgent-trifle-d26725.netlify.app/blog-ai-tool-test-template.html",
+    "publisher": {"@type": "Organization", "name": "CurioLab"},
+    "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+  <div class="announcement"><span class="pulse" aria-hidden="true"></span> CURIOLAB NOTES <span class="announcement-dot">·</span> Practical tests, not hype</div>
+  <header class="site-header wrap">
+    <a class="brand" href="index.html" aria-label="CurioLab home"><span class="brand-mark" aria-hidden="true">✳</span><span>curio<span class="brand-light">lab</span></span></a>
+    <nav class="nav" id="main-navigation" aria-label="Main navigation"><a href="index.html#discover">Discover</a><a href="index.html#experiments">Experiments</a><a href="index.html#field-guides">Field guides</a><a href="blog.html" aria-current="page">Blog</a></nav>
+    <a class="header-cta" href="index.html">Back to CurioLab <span>↗</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-navigation">☰</button>
+  </header>
+  <main class="wrap article-main">
+    <div class="eyebrow"><span class="eyebrow-line"></span> CURIOLAB BLOG · EXPERIMENT DESIGN</div>
+    <h1>A practical template for <span class="gradient-text">comparing AI tools.</span></h1>
+    <p class="article-lede">A useful comparison starts with one real task and a fair test—not a leaderboard or a single impressive answer. Use this lightweight protocol to compare tools on work you actually need done.</p>
+    <div class="article-meta">Experiment workflow · Approximately 6 minutes</div>
+
+    <h2>1. Choose one task with a clear outcome</h2>
+    <p>Pick a task you understand well enough to judge. Examples include summarizing a lecture section, extracting action items from a meeting note, explaining a concept for a beginner, or drafting a short email. Avoid changing the task between tools.</p>
+    <p>Write down what a successful answer must include before testing. This helps prevent you from changing the rules to favor the output you happen to like.</p>
+
+    <h2>2. Use matched inputs and instructions</h2>
+    <p>Give each tool the same source material and the same core prompt. Record any differences that cannot be avoided, such as a file-size limit or a feature available only in one product. Do not quietly give one tool more context or extra revision rounds.</p>
+    <div class="note-banner"><span class="note-icon" aria-hidden="true">i</span><p><b>Copy-ready test prompt:</b> “Complete the task using only the source material below. Preserve important details and conditions. Do not invent missing facts. If the source does not support a claim, label it as uncertain or not provided. Organize the answer for the intended reader. After the answer, list any important ambiguities or limitations.”</p></div>
+    <p>Replace “the task” with your exact task and paste the same source material into each tool. Keep the original outputs unchanged in your records.</p>
+
+    <h2>3. Score against prewritten criteria</h2>
+    <p>Use a simple scale from 1 to 5. Write what each score means before reading the outputs; otherwise, the scoring can drift from one tool to another.</p>
+    <table class="scorecard">
+      <thead><tr><th>Criterion</th><th>Question to ask</th></tr></thead>
+      <tbody>
+        <tr><td>Accuracy</td><td>Are claims supported, and are errors or invented details present?</td></tr>
+        <tr><td>Coverage</td><td>Did it include the required points without important omissions?</td></tr>
+        <tr><td>Clarity</td><td>Can the intended reader understand and use the answer?</td></tr>
+        <tr><td>Organization</td><td>Is information structured in a way that helps the task?</td></tr>
+        <tr><td>Revision effort</td><td>How much work was needed to make the result usable?</td></tr>
+      </tbody>
+    </table>
+    <p>Not every task needs equal weights. For source-based study notes, accuracy and coverage may matter more than style. For brainstorming, variety and usefulness may matter more. Choose weights that match the task and publish them with the results.</p>
+
+    <h2>4. Record time, cost, and constraints</h2>
+    <p>A response that looks good but takes longer to verify may not be the best option. Track how long you spend checking and editing each output, plus any usage limits, paid features, or privacy constraints relevant to your decision.</p>
+    <ul>
+      <li>Tool and model/version, if visible</li>
+      <li>Date of test and exact prompt</li>
+      <li>Source material or a reproducible description of it</li>
+      <li>Original output and number of revision rounds</li>
+      <li>Scores, reviewer notes, and editing time</li>
+      <li>Known missing information and test limitations</li>
+    </ul>
+
+    <h2>5. Avoid overstating the conclusion</h2>
+    <p>A small test tells you how tools performed on that task under those conditions. It does not prove that one tool is universally better. If you have one reviewer, say so. If output identities are hidden, do not guess which model produced each answer. If records are incomplete, label the result provisional.</p>
+    <p>When possible, run more than one task and repeat the comparison. Preserve ties when the evidence does not support a clear winner.</p>
+
+    <h2>Reusable results table</h2>
+    <table class="scorecard">
+      <thead><tr><th>Record</th><th>What to write down</th></tr></thead>
+      <tbody>
+        <tr><td>Task</td><td>One-sentence task and intended reader</td></tr>
+        <tr><td>Setup</td><td>Prompt, source, tools, date, and versions</td></tr>
+        <tr><td>Evaluation</td><td>Criterion scores with a short evidence note for each</td></tr>
+        <tr><td>Effort</td><td>Verification time, editing time, and revision rounds</td></tr>
+        <tr><td>Limitations</td><td>Missing records, uncertainty, and what the test cannot show</td></tr>
+      </tbody>
+    </table>
+
+    <p>For the longer method, read <a href="blog-fair-ai-comparisons.html">How to compare AI tools fairly</a>. If the task involves study material, use <a href="blog-verify-ai-study-notes.html">the source-checking workflow</a> before relying on the generated notes.</p>
+    <div class="note-banner"><span class="note-icon" aria-hidden="true">✳</span><p><b>CurioLab principle:</b> publish the method and limitations alongside the result. A transparent small test is more useful than a confident ranking with no evidence.</p></div>
+    <p><a class="text-link" href="blog.html">← Back to all blog articles</a></p>
+  </main>
+  <footer class="site-footer wrap"><p>CurioLab · Practical tests, not hype.</p><div><a href="about.html">About</a><a href="editorial-policy.html">Editorial policy</a><a href="disclosure.html">Disclosure</a><a href="privacy.html">Privacy</a></div></footer>
+  <script src="script.js"></script>
+</body>
+</html>

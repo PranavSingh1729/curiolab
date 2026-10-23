@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Evaluate AI Answers: A Practical Checklist | CurioLab</title>
+  <meta name="description" content="A practical checklist for evaluating AI answers: check claims against sources, assess completeness, test instructions, and record uncertainty.">
+  <link rel="canonical" href="https://effulgent-trifle-d26725.netlify.app/guide-evaluate-ai-answers.html">
+  <meta property="og:title" content="How to Evaluate AI Answers | CurioLab">
+  <meta property="og:description" content="A repeatable workflow for checking AI-generated answers instead of trusting fluent writing alone.">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .article-wrap{max-width:850px;margin:0 auto}
+    .article-wrap p,.article-wrap li{line-height:1.75}
+    .article-wrap h2{margin-top:2rem}
+    .checklist{padding-left:1.3rem}
+    .article-callout{border:1px solid var(--border,#ccc);border-radius:12px;padding:1rem;margin:1.25rem 0}
+    .article-callout p:last-child{margin-bottom:0}
+    .steps{counter-reset:step;list-style:none;padding:0}
+    .steps li{counter-increment:step;margin:1rem 0;padding:0 0 0 3rem;position:relative}
+    .steps li:before{content:counter(step);position:absolute;left:0;top:.1rem;border:1px solid var(--border,#ccc);border-radius:50%;width:2rem;height:2rem;display:grid;place-items:center;font-weight:700}
+  </style>
+</head>
+<body>
+<header class="site-header"><div class="container header-inner">
+  <a class="site-logo" href="index.html">CurioLab</a>
+  <nav class="site-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="start-here.html">Start Here</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="experiment-001-results.html">Experiment #001</a></nav>
+</div></header>
+<main class="container article-wrap">
+  <section class="page-hero">
+    <p class="eyebrow">Practical guide</p>
+    <h1>How to Evaluate an AI Answer: A Practical Checklist</h1>
+    <p>AI answers can be fluent and still be incomplete, unsupported, or wrong. A simple review process helps you separate good presentation from reliable content.</p>
+    <p class="score-note">This guide is educational. The checklist does not guarantee correctness and is not a substitute for expert review in high-stakes settings.</p>
+  </section>
+  <article class="content-section">
+    <h2>A repeatable five-step workflow</h2>
+    <ol class="steps">
+      <li><strong>Define what success means.</strong> Before reading the answer, write down the task, required points, audience, and constraints. This reduces the temptation to reward an answer simply because it sounds polished.</li>
+      <li><strong>Check important claims.</strong> Identify claims that affect the conclusion. Compare them with the source material or reliable primary sources. If a citation is supplied, confirm that it exists and actually supports the claim.</li>
+      <li><strong>Look for omissions and unsupported additions.</strong> Compare the answer with the original prompt and reference material. Mark missing requirements, invented details, and statements that go beyond the evidence.</li>
+      <li><strong>Assess usability.</strong> Check whether the structure, level of detail, and examples fit the intended audience. Clear writing matters, but it should not outweigh serious factual errors.</li>
+      <li><strong>Record evidence and uncertainty.</strong> Note specific examples supporting each judgment. If a claim cannot be verified, label it unverified rather than automatically calling it true or false.</li>
+    </ol>
+    <h2>Quick review checklist</h2>
+    <ul class="checklist">
+      <li>Does the answer address every part of the task?</li>
+      <li>Are key factual claims supported by reliable evidence?</li>
+      <li>Do cited sources exist and support the claims attributed to them?</li>
+      <li>Does the answer distinguish facts, assumptions, and uncertainty?</li>
+      <li>Are important limitations or counterexamples missing?</li>
+      <li>Does the answer follow the requested format and constraints?</li>
+      <li>Could a reader reproduce the result using the same prompt and sources?</li>
+    </ul>
+    <div class="article-callout">
+      <h2>Use CurioLab's free evaluation tools</h2>
+      <p><a href="ai-output-scorecard.html">AI Output Review Scorecard</a> — score one answer using a weighted rubric.</p>
+      <p><a href="ai-comparison-report.html">AI Output Comparison Report Builder</a> — compare two or three answers using the same criteria.</p>
+      <p><a href="ai-prompt-builder.html">AI Prompt Builder</a> — structure a prompt with context, constraints, and verification instructions.</p>
+    </div>
+    <h2>Comparing different AI tools fairly</h2>
+    <p>Use the same prompt, context, source documents, and output requirements for each system. When possible, score responses under neutral labels first. Record the model/version and run date only when you can verify them; do not guess missing metadata. A small informal test can inform your own workflow, but it does not establish that one model is universally better.</p>
+    <h2>What a score can and cannot tell you</h2>
+    <p>A score summarizes judgments under a particular rubric and set of weights. It is not an objective measurement of truth. Results depend on the task, source material, evaluator consistency, and what the rubric rewards. For stronger evaluations, define criteria before scoring, keep evidence notes, and repeat the test on more than one representative task.</p>
+    <h2>Frequently asked questions</h2>
+    <h3>Should I trust an answer if it includes citations?</h3>
+    <p>No. Check that each source exists, is relevant, and supports the specific statement. A citation's presence alone does not verify a claim.</p>
+    <h3>Is the highest-scoring answer always the best?</h3>
+    <p>Not necessarily. A weighted score depends on the rubric and the evaluator's judgments. Serious factual errors may matter more than the overall score suggests, so inspect the evidence behind the rating.</p>
+    <h3>Can this process eliminate hallucinations?</h3>
+    <p>No review process can guarantee that every error will be found. The goal is to make checks systematic, expose uncertainty, and reduce avoidable mistakes.</p>
+    <p><a href="blog.html">Back to CurioLab Blog →</a></p>
+  </article>
+</main>
+<footer class="site-footer"><div class="container"><p>CurioLab — practical experiments and tools for evaluating AI.</p><p><a href="privacy.html">Privacy</a></p></div></footer>
+</body>
+</html>

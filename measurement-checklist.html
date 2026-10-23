@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search & Analytics Setup Checklist | CurioLab</title>
+  <meta name="description" content="A practical launch checklist for connecting CurioLab to Google Search Console and privacy-conscious analytics without inventing tracking IDs or claiming setup is complete.">
+  <link rel="canonical" href="https://effulgent-trifle-d26725.netlify.app/measurement-checklist.html">
+  <meta property="og:title" content="Search & Analytics Setup Checklist | CurioLab">
+  <meta property="og:description" content="Prepare CurioLab to measure search visibility and visitor engagement responsibly.">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .measure-wrap{max-width:900px;margin:0 auto}
+    .measure-wrap p,.measure-wrap li{line-height:1.75}
+    .measure-list{padding-left:1.3rem}
+    .measure-list li{margin:.6rem 0}
+    .measure-card{border:1px solid var(--border,#ccc);border-radius:12px;padding:1rem;margin:1rem 0}
+    .measure-status{font-size:.92rem;opacity:.8}
+    .measure-links a{display:inline-block;margin:.25rem .7rem .25rem 0}
+  </style>
+</head>
+<body>
+<header class="site-header"><div class="container header-inner">
+  <a class="site-logo" href="index.html">CurioLab</a>
+  <nav class="site-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="start-here.html">Start Here</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="experiment-001-results.html">Experiment #001</a></nav>
+</div></header>
+<main class="container measure-wrap">
+  <section class="page-hero">
+    <p class="eyebrow">Launch & measurement</p>
+    <h1>Search & Analytics Setup Checklist</h1>
+    <p>Use this checklist to move CurioLab from a published static site to a site whose search visibility and visitor engagement can be measured. This page is a guide—not proof that any external service has been connected.</p>
+  </section>
+  <section class="content-section">
+    <h2>Step 1 — Confirm the live site first</h2>
+    <ul class="measure-list">
+      <li>Deploy the latest complete website ZIP to Netlify.</li>
+      <li>Open the homepage and test the main navigation on desktop and mobile.</li>
+      <li>Open the new tool and guide URLs directly; check that they do not return a 404.</li>
+      <li>Open the sitemap URL and confirm it lists the current pages.</li>
+      <li>Keep a copy of the exact ZIP that was deployed so changes are reproducible.</li>
+    </ul>
+    <p class="measure-links"><a href="https://effulgent-trifle-d26725.netlify.app/">Live homepage ↗</a><a href="https://effulgent-trifle-d26725.netlify.app/sitemap.xml">Sitemap ↗</a></p>
+    <h2>Step 2 — Set up Google Search Console</h2>
+    <ol class="measure-list">
+      <li>Open <a href="https://search.google.com/search-console/about">Google Search Console</a> and add the exact deployed site as a property. Choose the verification method you can complete; a domain property typically requires DNS access.</li>
+      <li>Complete Google's ownership verification. Do not assume the property is verified until Search Console confirms it.</li>
+      <li>Submit the sitemap URL: <code>https://effulgent-trifle-d26725.netlify.app/sitemap.xml</code>.</li>
+      <li>Use URL Inspection for the homepage and important tool pages. Request indexing if appropriate, then wait for Google to process the request.</li>
+      <li>After data starts appearing, review impressions, clicks, click-through rate, and average position. Search data can take time to populate.</li>
+    </ol>
+    <div class="measure-card"><h3>What to record</h3><ul class="measure-list"><li>Date property verified</li><li>Sitemap submission status and date</li><li>Pages indexed or excluded, with reasons</li><li>Queries and pages receiving impressions</li></ul></div>
+    <h2>Step 3 — Choose analytics deliberately</h2>
+    <p>Use an analytics service only after deciding what you need to measure and how you'll explain data collection to visitors. For a small site, start with aggregate page views and tool-page engagement rather than collecting unnecessary personal information.</p>
+    <ol class="measure-list">
+      <li>Choose a provider and review its current pricing, privacy terms, and regional requirements.</li>
+      <li>Create the property in that provider's dashboard and copy the actual measurement ID or installation snippet it supplies.</li>
+      <li>Add the real snippet to the deployed site only after deciding whether consent or additional disclosure is required. Never use a placeholder ID in production.</li>
+      <li>Test the provider's real-time or debug view after deployment. Confirm that page visits are recorded without exposing personal information.</li>
+      <li>Update the privacy page accurately to describe the analytics service and the data it collects.</li>
+    </ol>
+    <div class="measure-card"><h3>Minimum useful metrics</h3><ul class="measure-list"><li>Visits to the homepage, blog, guides, and each tool page</li><li>Outbound clicks from guide pages to tools</li><li>Tool interactions, if measured in a privacy-respecting way</li><li>Search impressions and clicks from Search Console</li></ul><p class="measure-status">Do not claim analytics is active until the real property is configured and a test visit is visible in its dashboard.</p></div>
+    <h2>Step 4 — Use the data to improve the site</h2>
+    <ul class="measure-list">
+      <li>Identify which pages get search impressions but few clicks; improve titles and descriptions where useful.</li>
+      <li>Identify pages people visit but quickly leave; check whether the page answers its title's promise and loads well on mobile.</li>
+      <li>Improve internal links from popular guides to relevant tools, without forcing unrelated links.</li>
+      <li>Review changes after enough data accumulates; avoid drawing conclusions from tiny samples.</li>
+    </ul>
+    <h2>Official resources</h2>
+    <ul class="measure-list">
+      <li><a href="https://search.google.com/search-console/about">Google Search Console</a></li>
+      <li><a href="https://support.google.com/webmasters/answer/7451001">Submit a sitemap in Search Console</a></li>
+      <li><a href="https://analytics.google.com/">Google Analytics</a> — optional; choose a provider based on your needs.</li>
+    </ul>
+    <p><a href="start-here.html">Start Here →</a> · <a href="editorial-policy.html">Editorial Policy →</a> · <a href="privacy.html">Privacy →</a></p>
+  </section>
+</main>
+<footer class="site-footer"><div class="container"><p>CurioLab — practical experiments and tools for evaluating AI.</p><p><a href="privacy.html">Privacy</a> · <a href="editorial-policy.html">Editorial Policy</a> · <a href="disclosure.html">Disclosure</a></p></div></footer>
+</body>
+</html>

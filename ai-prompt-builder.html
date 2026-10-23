@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Prompt Builder: Create Clear, Testable Prompts | CurioLab</title>
+  <meta name="description" content="Build a structured AI prompt with context, audience, constraints, output format, and verification instructions. Runs in your browser.">
+  <link rel="canonical" href="https://effulgent-trifle-d26725.netlify.app/ai-prompt-builder.html">
+  <meta property="og:title" content="AI Prompt Builder | CurioLab">
+  <meta property="og:description" content="Turn a rough task into a clear, structured prompt you can copy and test.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .tool-wrap{max-width:960px;margin:0 auto}
+    .tool-intro{font-size:1.08rem;line-height:1.7}
+    .builder-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .builder-field{display:flex;flex-direction:column;gap:.4rem}
+    .builder-field.full{grid-column:1/-1}
+    .builder-field label{font-weight:650}
+    .builder-field input,.builder-field textarea,.builder-field select{width:100%;padding:.75rem;border:1px solid var(--border,#ccc);border-radius:10px;background:var(--card-bg,#fff);color:inherit;font:inherit}
+    .builder-field textarea{min-height:100px;resize:vertical}
+    .builder-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin:1rem 0}
+    .builder-actions button{padding:.7rem 1rem;border:1px solid var(--border,#ccc);border-radius:999px;cursor:pointer;font:inherit}
+    .primary-action{font-weight:700}
+    .prompt-output{white-space:pre-wrap;overflow-wrap:anywhere;min-height:220px;padding:1rem;border:1px solid var(--border,#ccc);border-radius:12px;background:var(--card-bg,#fff);line-height:1.65}
+    .helper{font-size:.92rem;opacity:.82}
+    @media(max-width:680px){.builder-grid{grid-template-columns:1fr}.builder-field.full{grid-column:auto}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-logo" href="index.html">CurioLab</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a><a href="start-here.html">Start Here</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="experiment-001-results.html">Experiment #001</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container tool-wrap">
+    <section class="page-hero">
+      <p class="eyebrow">Free browser tool</p>
+      <h1>AI Prompt Builder</h1>
+      <p class="tool-intro">Turn a rough request into a clearer, testable prompt. Add context, define the audience, set constraints, and ask the model to flag uncertainty instead of inventing details.</p>
+    </section>
+    <section class="content-section">
+      <h2>Build your prompt</h2>
+      <p class="helper">Enter only information you are comfortable placing into the AI tool you plan to use. This builder runs locally in your browser; it does not send these fields to CurioLab.</p>
+      <div class="builder-grid">
+        <div class="builder-field full"><label for="task">What do you want the AI to do? *</label><textarea id="task" placeholder="Example: Explain the key differences between supervised and unsupervised learning." required></textarea></div>
+        <div class="builder-field"><label for="audience">Audience / level</label><input id="audience" placeholder="e.g. second-year computer science student"></div>
+        <div class="builder-field"><label for="tone">Style</label><select id="tone"><option>Clear and direct</option><option>Beginner-friendly</option><option>Formal and academic</option><option>Concise bullet points</option><option>Step-by-step tutor</option></select></div>
+        <div class="builder-field full"><label for="context">Context and source material</label><textarea id="context" placeholder="Relevant background, supplied facts, or source text. If using sources, ask the AI to stay faithful to them."></textarea></div>
+        <div class="builder-field"><label for="constraints">Constraints / must-include points</label><textarea id="constraints" placeholder="e.g. Keep under 500 words; include one example and a comparison table."></textarea></div>
+        <div class="builder-field"><label for="format">Desired output format</label><select id="format"><option>Headings and bullet points</option><option>Numbered steps</option><option>Comparison table</option><option>Short report</option><option>Code with explanation</option><option>Checklist</option></select></div>
+        <div class="builder-field full"><label for="checks">Verification instructions</label><textarea id="checks" placeholder="Optional: e.g. distinguish facts from assumptions, cite sources provided, and mark anything that cannot be verified.">Do not invent facts or sources. Clearly label assumptions and uncertainties. If the information provided is insufficient, say what is missing.</textarea></div>
+      </div>
+      <div class="builder-actions">
+        <button class="primary-action" id="buildBtn" type="button">Build prompt</button>
+        <button id="copyBtn" type="button">Copy prompt</button>
+        <button id="resetBtn" type="button">Reset</button>
+      </div>
+      <p id="status" class="helper" role="status" aria-live="polite"></p>
+      <h2>Your generated prompt</h2>
+      <div id="output" class="prompt-output" aria-label="Generated prompt" tabindex="0">Fill in the task above, then select “Build prompt”.</div>
+    </section>
+    <section class="content-section">
+      <h2>Use it responsibly</h2>
+      <ul>
+        <li>A detailed prompt can improve clarity, but it cannot guarantee a correct answer.</li>
+        <li>For factual or academic work, compare important claims with reliable source material.</li>
+        <li>Do not paste passwords, private records, or confidential information into prompts.</li>
+        <li>For coding tasks, run and test the generated code before relying on it.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container"><p>CurioLab — practical experiments and tools for evaluating AI.</p><p><a href="privacy.html">Privacy</a></p></div></footer>
+<script>
+(() => {
+  const ids = ["task","audience","tone","context","constraints","format","checks"];
+  const $ = id => document.getElementById(id);
+  function build() {
+    const task = $("task").value.trim();
+    if (!task) { $("status").textContent = "Please describe the task first."; $("task").focus(); return; }
+    const sections = [
+      "TASK\n" + task,
+      $("audience").value.trim() ? "AUDIENCE / LEVEL\n" + $("audience").value.trim() : "",
+      "STYLE\n" + $("tone").value,
+      $("context").value.trim() ? "CONTEXT / SOURCE MATERIAL\n" + $("context").value.trim() : "",
+      $("constraints").value.trim() ? "CONSTRAINTS\n" + $("constraints").value.trim() : "",
+      "OUTPUT FORMAT\n" + $("format").value,
+      "QUALITY CHECKS\n" + ($("checks").value.trim() || "Do not invent facts or sources. Clearly label assumptions and uncertainties. If information is insufficient, state what is missing."),
+      "Before finalizing, check that the response follows the task, constraints, and requested format."
+    ].filter(Boolean);
+    $("output").textContent = sections.join("\n\n");
+    $("status").textContent = "Prompt built. Review it before copying it into your chosen AI tool.";
+  }
+  $("buildBtn").addEventListener("click", build);
+  $("copyBtn").addEventListener("click", async () => {
+    if ($("output").textContent.startsWith("Fill in the task")) { build(); if (!$("task").value.trim()) return; }
+    try { await navigator.clipboard.writeText($("output").textContent); $("status").textContent = "Prompt copied to clipboard."; }
+    catch { $("status").textContent = "Clipboard access was blocked. Select the prompt text and copy it manually."; }
+  });
+  $("resetBtn").addEventListener("click", () => {
+    ids.forEach(id => { if ($(id).tagName === "SELECT") $(id).selectedIndex = 0; else $(id).value = ""; });
+    $("checks").value = "Do not invent facts or sources. Clearly label assumptions and uncertainties. If the information provided is insufficient, say what is missing.";
+    $("output").textContent = "Fill in the task above, then select “Build prompt”.";
+    $("status").textContent = "Form reset.";
+  });
+})();
+</script>
+</body>
+</html>

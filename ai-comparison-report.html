@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Output Comparison Report Builder | CurioLab</title>
+  <meta name="description" content="Compare two or three AI outputs against the same task, score them with a transparent rubric, record evidence, and export a CSV report.">
+  <link rel="canonical" href="https://effulgent-trifle-d26725.netlify.app/ai-comparison-report.html">
+  <meta property="og:title" content="AI Output Comparison Report Builder | CurioLab">
+  <meta property="og:description" content="A browser-based tool to compare AI answers using a consistent rubric and evidence notes.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .compare-wrap{max-width:1080px;margin:0 auto}
+    .compare-intro{font-size:1.06rem;line-height:1.7}
+    .compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .compare-field{display:flex;flex-direction:column;gap:.4rem}
+    .compare-field.full{grid-column:1/-1}
+    .compare-field label{font-weight:650}
+    .compare-field input,.compare-field textarea,.compare-field select{width:100%;padding:.7rem;border:1px solid var(--border,#ccc);border-radius:10px;background:var(--card-bg,#fff);color:inherit;font:inherit}
+    .compare-field textarea{min-height:140px;resize:vertical}
+    .compare-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin:1rem 0}
+    .compare-actions button{padding:.7rem 1rem;border:1px solid var(--border,#ccc);border-radius:999px;cursor:pointer;font:inherit}
+    .compare-table-wrap{overflow-x:auto}
+    .compare-table{width:100%;border-collapse:collapse;min-width:660px}
+    .compare-table th,.compare-table td{padding:.65rem;border-bottom:1px solid var(--border,#ddd);text-align:left;vertical-align:top}
+    .compare-table input{width:80px;max-width:100%;padding:.5rem;border:1px solid var(--border,#ccc);border-radius:8px;font:inherit}
+    .compare-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
+    .compare-result{padding:1rem;border:1px solid var(--border,#ccc);border-radius:12px}
+    .compare-result strong{display:block;font-size:1.5rem;margin-top:.3rem}
+    .compare-note{font-size:.92rem;opacity:.82}
+    .compare-output{white-space:pre-wrap;overflow-wrap:anywhere;padding:1rem;border:1px solid var(--border,#ccc);border-radius:12px;line-height:1.6}
+    @media(max-width:700px){.compare-grid{grid-template-columns:1fr}.compare-field.full{grid-column:auto}.compare-results{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header class="site-header"><div class="container header-inner">
+  <a class="site-logo" href="index.html">CurioLab</a>
+  <nav class="site-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="start-here.html">Start Here</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="experiment-001-results.html">Experiment #001</a></nav>
+</div></header>
+<main class="container compare-wrap">
+  <section class="page-hero">
+    <p class="eyebrow">Free browser tool</p>
+    <h1>AI Output Comparison Report Builder</h1>
+    <p class="compare-intro">Compare up to three AI responses to the same task. Use the same rubric for each output, capture evidence, and export a report you can inspect in a spreadsheet. The tool does not decide which answer is true; you must verify claims against reliable sources.</p>
+  </section>
+  <section class="content-section">
+    <h2>1. Define the comparison</h2>
+    <div class="compare-grid">
+      <div class="compare-field full"><label for="task">Task or prompt used for all outputs *</label><textarea id="task" placeholder="Paste the exact shared prompt or summarize it. Avoid confidential information."></textarea></div>
+      <div class="compare-field"><label for="criteria">Task-specific requirements</label><textarea id="criteria" placeholder="What must a good answer include? e.g. definitions, examples, source fidelity."></textarea></div>
+      <div class="compare-field"><label for="source">Reference material / verification basis</label><textarea id="source" placeholder="Name the source documents or describe how claims will be checked."></textarea></div>
+    </div>
+    <h2>2. Add outputs</h2>
+    <p class="compare-note">Use neutral labels such as Output A, Output B, and Output C when you want to reduce brand bias. The tool processes these fields locally in your browser.</p>
+    <div class="compare-grid">
+      <div class="compare-field"><label for="labelA">Output A label</label><input id="labelA" value="Output A"></div>
+      <div class="compare-field"><label for="textA">Output A response *</label><textarea id="textA" placeholder="Paste the first AI response"></textarea></div>
+      <div class="compare-field"><label for="labelB">Output B label</label><input id="labelB" value="Output B"></div>
+      <div class="compare-field"><label for="textB">Output B response *</label><textarea id="textB" placeholder="Paste the second AI response"></textarea></div>
+      <div class="compare-field"><label for="labelC">Output C label (optional)</label><input id="labelC" value="Output C"></div>
+      <div class="compare-field"><label for="textC">Output C response (optional)</label><textarea id="textC" placeholder="Paste a third response, if available"></textarea></div>
+    </div>
+    <h2>3. Score each output</h2>
+    <p class="compare-note">Score from 0 (poor/not met) to 5 (excellent/fully met). Default weights total 100%. Use evidence notes to explain why you assigned each score.</p>
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead><tr><th>Criterion</th><th>Weight %</th><th>Output A (0–5)</th><th>Output B (0–5)</th><th>Output C (0–5)</th></tr></thead>
+        <tbody>
+          <tr><td>Accuracy</td><td><input id="w0" type="number" min="0" max="100" value="30" aria-label="Accuracy weight"></td><td><input id="a0" type="number" min="0" max="5" step=".5" value="3" aria-label="Output A accuracy"></td><td><input id="b0" type="number" min="0" max="5" step=".5" value="3" aria-label="Output B accuracy"></td><td><input id="c0" type="number" min="0" max="5" step=".5" value="3" aria-label="Output C accuracy"></td></tr>
+          <tr><td>Completeness</td><td><input id="w1" type="number" min="0" max="100" value="20" aria-label="Completeness weight"></td><td><input id="a1" type="number" min="0" max="5" step=".5" value="3" aria-label="Output A completeness"></td><td><input id="b1" type="number" min="0" max="5" step=".5" value="3" aria-label="Output B completeness"></td><td><input id="c1" type="number" min="0" max="5" step=".5" value="3" aria-label="Output C completeness"></td></tr>
+          <tr><td>Source fidelity</td><td><input id="w2" type="number" min="0" max="100" value="25" aria-label="Source fidelity weight"></td><td><input id="a2" type="number" min="0" max="5" step=".5" value="3" aria-label="Output A source fidelity"></td><td><input id="b2" type="number" min="0" max="5" step=".5" value="3" aria-label="Output B source fidelity"></td><td><input id="c2" type="number" min="0" max="5" step=".5" value="3" aria-label="Output C source fidelity"></td></tr>
+          <tr><td>Clarity</td><td><input id="w3" type="number" min="0" max="100" value="15" aria-label="Clarity weight"></td><td><input id="a3" type="number" min="0" max="5" step=".5" value="3" aria-label="Output A clarity"></td><td><input id="b3" type="number" min="0" max="5" step=".5" value="3" aria-label="Output B clarity"></td><td><input id="c3" type="number" min="0" max="5" step=".5" value="3" aria-label="Output C clarity"></td></tr>
+          <tr><td>Instruction-following</td><td><input id="w4" type="number" min="0" max="100" value="10" aria-label="Instruction-following weight"></td><td><input id="a4" type="number" min="0" max="5" step=".5" value="3" aria-label="Output A instruction-following"></td><td><input id="b4" type="number" min="0" max="5" step=".5" value="3" aria-label="Output B instruction-following"></td><td><input id="c4" type="number" min="0" max="5" step=".5" value="3" aria-label="Output C instruction-following"></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="compare-actions">
+      <button id="calculateBtn" type="button">Calculate comparison</button>
+      <button id="exportBtn" type="button">Export comparison CSV</button>
+      <button id="resetBtn" type="button">Reset tool</button>
+    </div>
+    <p class="compare-note" id="status" role="status" aria-live="polite">Enter at least two responses, then calculate.</p>
+    <div class="compare-results">
+      <div class="compare-result"><span class="compare-note" id="nameA">Output A</span><strong id="scoreA">— / 100</strong></div>
+      <div class="compare-result"><span class="compare-note" id="nameB">Output B</span><strong id="scoreB">— / 100</strong></div>
+      <div class="compare-result"><span class="compare-note" id="nameC">Output C</span><strong id="scoreC">— / 100</strong></div>
+    </div>
+    <h2>Comparison summary</h2>
+    <div id="summary" class="compare-output">Your comparison summary will appear here after calculation.</div>
+  </section>
+  <section class="content-section">
+    <h2>Fair-comparison checklist</h2>
+    <ul>
+      <li>Use the same prompt, context, reference documents, and output requirements for each model.</li>
+      <li>Record model names, versions, run dates, and settings separately when known; never guess missing metadata.</li>
+      <li>Use neutral labels during scoring if possible, and verify factual claims against the same sources.</li>
+      <li>Report the rubric, weights, limitations, and missing information alongside any conclusion.</li>
+    </ul>
+    <p><a href="ai-output-scorecard.html">Use the single-output scorecard →</a> · <a href="blog-fair-ai-comparisons.html">Read about fair AI comparisons →</a></p>
+  </section>
+</main>
+<footer class="site-footer"><div class="container"><p>CurioLab — practical experiments and tools for evaluating AI.</p><p><a href="privacy.html">Privacy</a></p></div></footer>
+<script>
+(() => {
+ const $=id=>document.getElementById(id);
+ const criteria=["Accuracy","Completeness","Source fidelity","Clarity","Instruction-following"];
+ function data(){
+   const weights=criteria.map((_,i)=>Number($("w"+i).value));
+   const outputs=["A","B","C"].map(k=>({key:k,label:$("label"+k).value.trim()||("Output "+k),text:$("text"+k).value.trim(),scores:criteria.map((_,i)=>Number($(k.toLowerCase()+i).value))}));
+   return {weights,total:weights.reduce((a,b)=>a+b,0),outputs};
+ }
+ function calc(){
+   const d=data();
+   if(!d.outputs[0].text||!d.outputs[1].text){$("status").textContent="Please enter at least Output A and Output B responses.";return null;}
+   if(d.total!==100||d.weights.some(w=>!Number.isFinite(w)||w<0)||d.outputs.some(o=>o.text&&o.scores.some(s=>!Number.isFinite(s)||s<0||s>5))){
+     $("status").textContent="Check that weights total exactly 100% and all scores are between 0 and 5.";return null;
+   }
+   d.outputs.forEach(o=>{o.score=d.weights.reduce((sum,w,i)=>sum+w*o.scores[i]/5,0);});
+   ["A","B","C"].forEach(k=>{
+     const o=d.outputs.find(x=>x.key===k);
+     $("name"+k).textContent=o.label;
+     $("score"+k).textContent=o.text?o.score.toFixed(1).replace(/\.0$/,"")+" / 100":"Not provided";
+   });
+   const ranked=d.outputs.filter(o=>o.text).sort((a,b)=>b.score-a.score);
+   const tie=ranked.length>1&&Math.abs(ranked[0].score-ranked[1].score)<0.001;
+   const lines=[
+     "Task: "+($("task").value.trim()||"(not provided)"),
+     "Requirements: "+($("criteria").value.trim()||"(not provided)"),
+     "Verification basis: "+($("source").value.trim()||"(not provided)"),
+     "",
+     ...ranked.map((o,i)=>`${i+1}. ${o.label}: ${o.score.toFixed(1)}/100`),
+     "",
+     ranked.length<2?"Add at least two responses to compare.":tie?"The top scores are tied under this rubric.":"Highest score under the selected rubric: "+ranked[0].label+".",
+     "Interpretation: This ranking reflects the entered human scores and chosen weights; it does not independently verify factual correctness."
+   ];
+   $("summary").textContent=lines.join("\n");
+   $("status").textContent="Comparison calculated. Review the evidence and limitations before drawing conclusions.";
+   return d;
+ }
+ function cell(v){return '"'+String(v??"").replace(/"/g,'""')+'"';}
+ function exportCsv(){
+   const d=calc();if(!d)return;
+   const rows=[
+    ["Field","Value"],["Task / prompt",$("task").value],["Task-specific requirements",$("criteria").value],["Reference material / verification basis",$("source").value],
+    [],["Criterion","Weight (%)","Output A label","Output A score","Output B label","Output B score","Output C label","Output C score"]
+   ];
+   criteria.forEach((name,i)=>rows.push([name,d.weights[i],d.outputs[0].label,d.outputs[0].scores[i],d.outputs[1].label,d.outputs[1].scores[i],d.outputs[2].label,d.outputs[2].text?d.outputs[2].scores[i]:""]));
+   rows.push([],["Output label","Weighted score / 100","Response text"]);
+   d.outputs.filter(o=>o.text).forEach(o=>rows.push([o.label,o.score.toFixed(1),o.text]));
+   rows.push([],["Caution","Scores are human judgments under the chosen rubric, not proof of truth."]);
+   const blob=new Blob(["\uFEFF"+rows.map(r=>r.map(cell).join(",")).join("\r\n")],{type:"text/csv;charset=utf-8;"});
+   const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="curiolab-ai-comparison-report.csv";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+   $("status").textContent="CSV export started.";
+ }
+ $("calculateBtn").addEventListener("click",calc);
+ $("exportBtn").addEventListener("click",exportCsv);
+ $("resetBtn").addEventListener("click",()=>{
+   ["task","criteria","source","textA","textB","textC"].forEach(id=>$(id).value="");
+   $("labelA").value="Output A";$("labelB").value="Output B";$("labelC").value="Output C";
+   const w=[30,20,25,15,10];
+   criteria.forEach((_,i)=>{$("w"+i).value=w[i];["a","b","c"].forEach(k=>$(k+i).value=3);});
+   ["A","B","C"].forEach(k=>{$("name"+k).textContent="Output "+k;$("score"+k).textContent="— / 100";});
+   $("summary").textContent="Your comparison summary will appear here after calculation.";
+   $("status").textContent="Tool reset.";
+ });
+})();
+</script>
+</body>
+</html>

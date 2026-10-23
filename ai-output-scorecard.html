@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Output Review Scorecard | CurioLab</title>
+  <meta name="description" content="Evaluate an AI answer with a transparent rubric for accuracy, completeness, clarity, instruction-following, and source fidelity. Export a review record as CSV.">
+  <link rel="canonical" href="https://effulgent-trifle-d26725.netlify.app/ai-output-scorecard.html">
+  <meta property="og:title" content="AI Output Review Scorecard | CurioLab">
+  <meta property="og:description" content="A practical, editable scorecard for reviewing AI-generated answers.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .score-wrap{max-width:1000px;margin:0 auto}
+    .score-intro{font-size:1.06rem;line-height:1.7}
+    .score-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .score-field{display:flex;flex-direction:column;gap:.4rem}
+    .score-field.full{grid-column:1/-1}
+    .score-field label{font-weight:650}
+    .score-field input,.score-field textarea,.score-field select{width:100%;padding:.7rem;border:1px solid var(--border,#ccc);border-radius:10px;background:var(--card-bg,#fff);color:inherit;font:inherit}
+    .score-field textarea{min-height:90px;resize:vertical}
+    .score-table-wrap{overflow-x:auto;margin:1rem 0}
+    .score-table{width:100%;border-collapse:collapse;min-width:620px}
+    .score-table th,.score-table td{padding:.7rem;text-align:left;border-bottom:1px solid var(--border,#ddd);vertical-align:top}
+    .score-table input[type=number]{width:84px;padding:.5rem;border:1px solid var(--border,#ccc);border-radius:8px;font:inherit}
+    .score-table input[type=text]{width:100%;min-width:130px;padding:.5rem;border:1px solid var(--border,#ccc);border-radius:8px;font:inherit}
+    .score-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin:1rem 0}
+    .score-actions button{padding:.7rem 1rem;border:1px solid var(--border,#ccc);border-radius:999px;cursor:pointer;font:inherit}
+    .score-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
+    .score-result{padding:1rem;border:1px solid var(--border,#ccc);border-radius:12px}
+    .score-result strong{display:block;font-size:1.6rem;margin-top:.3rem}
+    .score-note{font-size:.92rem;opacity:.82}
+    @media(max-width:680px){.score-grid{grid-template-columns:1fr}.score-field.full{grid-column:auto}.score-results{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header class="site-header"><div class="container header-inner">
+  <a class="site-logo" href="index.html">CurioLab</a>
+  <nav class="site-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="start-here.html">Start Here</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="experiment-001-results.html">Experiment #001</a></nav>
+</div></header>
+<main class="container score-wrap">
+  <section class="page-hero">
+    <p class="eyebrow">Free browser tool</p>
+    <h1>AI Output Review Scorecard</h1>
+    <p class="score-intro">Review an AI-generated answer using a consistent rubric. Score each criterion, record evidence and concerns, and export a CSV review record. This is a structured aid for human judgment—not proof that an answer is correct.</p>
+  </section>
+  <section class="content-section">
+    <h2>Review details</h2>
+    <div class="score-grid">
+      <div class="score-field"><label for="reviewTitle">Task / review title</label><input id="reviewTitle" placeholder="e.g. Summarize lecture notes on regression"></div>
+      <div class="score-field"><label for="modelName">AI tool / model label</label><input id="modelName" placeholder="Enter the label you actually know"></div>
+      <div class="score-field"><label for="source">Source material used</label><input id="source" placeholder="e.g. Lecture PDF, URL, or none"></div>
+      <div class="score-field"><label for="reviewer">Reviewer label (optional)</label><input id="reviewer" placeholder="Your initials or a neutral label"></div>
+      <div class="score-field full"><label for="summary">Brief evidence notes</label><textarea id="summary" placeholder="Record specific examples, missing points, unsupported claims, or source mismatches. Avoid pasting sensitive information."></textarea></div>
+    </div>
+    <h2>Score the answer</h2>
+    <p class="score-note">Each criterion is scored from 0 to 5. The weights total 100%. Use the evidence field to explain each score. The default weights are a practical starting point; adjust them to fit your task.</p>
+    <div class="score-table-wrap">
+      <table class="score-table">
+        <thead><tr><th>Criterion</th><th>Weight (%)</th><th>Score (0–5)</th><th>Evidence / notes</th></tr></thead>
+        <tbody>
+          <tr><td><label for="s0">Accuracy</label><p class="score-note">Claims are correct and not misleading.</p></td><td><input id="w0" type="number" min="0" max="100" value="30" aria-label="Accuracy weight percentage"></td><td><input id="s0" type="number" min="0" max="5" step="0.5" value="3" aria-label="Accuracy score"></td><td><input id="e0" type="text" placeholder="Evidence or concern"></td></tr>
+          <tr><td><label for="s1">Completeness</label><p class="score-note">Important requested points are covered.</p></td><td><input id="w1" type="number" min="0" max="100" value="20" aria-label="Completeness weight percentage"></td><td><input id="s1" type="number" min="0" max="5" step="0.5" value="3" aria-label="Completeness score"></td><td><input id="e1" type="text" placeholder="Evidence or concern"></td></tr>
+          <tr><td><label for="s2">Source fidelity</label><p class="score-note">Faithful to supplied sources; no invented support.</p></td><td><input id="w2" type="number" min="0" max="100" value="25" aria-label="Source fidelity weight percentage"></td><td><input id="s2" type="number" min="0" max="5" step="0.5" value="3" aria-label="Source fidelity score"></td><td><input id="e2" type="text" placeholder="Evidence or concern"></td></tr>
+          <tr><td><label for="s3">Clarity</label><p class="score-note">Understandable, organized, and appropriately concise.</p></td><td><input id="w3" type="number" min="0" max="100" value="15" aria-label="Clarity weight percentage"></td><td><input id="s3" type="number" min="0" max="5" step="0.5" value="3" aria-label="Clarity score"></td><td><input id="e3" type="text" placeholder="Evidence or concern"></td></tr>
+          <tr><td><label for="s4">Instruction-following</label><p class="score-note">Follows the prompt, format, and constraints.</p></td><td><input id="w4" type="number" min="0" max="100" value="10" aria-label="Instruction-following weight percentage"></td><td><input id="s4" type="number" min="0" max="5" step="0.5" value="3" aria-label="Instruction-following score"></td><td><input id="e4" type="text" placeholder="Evidence or concern"></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="score-results" aria-live="polite">
+      <div class="score-result"><span class="score-note">Weighted score</span><strong id="weighted">60 / 100</strong></div>
+      <div class="score-result"><span class="score-note">Weight total</span><strong id="weightTotal">100%</strong></div>
+      <div class="score-result"><span class="score-note">Score status</span><strong id="status">Draft</strong></div>
+    </div>
+    <p class="score-note" id="formulaNote">Weighted score is calculated only when weights total 100%. Each criterion contributes its weight multiplied by its score divided by 5.</p>
+    <div class="score-actions">
+      <button id="exportBtn" type="button">Export review CSV</button>
+      <button id="resetBtn" type="button">Reset scorecard</button>
+    </div>
+  </section>
+  <section class="content-section">
+    <h2>How to use the result</h2>
+    <ul>
+      <li>Keep the original prompt and answer if you need a reproducible evaluation.</li>
+      <li>Score against the task and available evidence—not against confidence or writing polish alone.</li>
+      <li>For important factual claims, verify them against reliable sources independently.</li>
+      <li>Do not treat scores from different reviewers as directly comparable unless they use the same rubric and process.</li>
+    </ul>
+    <p><a href="ai-output-review-worksheet.html">Also see the blank AI output review worksheet →</a></p>
+  </section>
+</main>
+<footer class="site-footer"><div class="container"><p>CurioLab — practical experiments and tools for evaluating AI.</p><p><a href="privacy.html">Privacy</a></p></div></footer>
+<script>
+(() => {
+ const $ = id => document.getElementById(id);
+ const names = ["Accuracy","Completeness","Source fidelity","Clarity","Instruction-following"];
+ function values() {
+   const weights = names.map((_,i) => Number($("w"+i).value));
+   const scores = names.map((_,i) => Number($("s"+i).value));
+   return {weights,scores,total:weights.reduce((a,b)=>a+b,0)};
+ }
+ function update() {
+   const v=values();
+   $("weightTotal").textContent = v.total + "%";
+   $("weightTotal").style.opacity = v.total===100 ? "1" : ".65";
+   if (v.total===100 && v.weights.every(x=>Number.isFinite(x)&&x>=0) && v.scores.every(x=>Number.isFinite(x)&&x>=0&&x<=5)) {
+     const result=v.weights.reduce((sum,w,i)=>sum+w*v.scores[i]/5,0);
+     $("weighted").textContent=result.toFixed(1).replace(/\.0$/,"")+" / 100";
+     $("status").textContent="Ready to export";
+   } else {
+     $("weighted").textContent="—";
+     $("status").textContent=v.total!==100 ? "Adjust weights" : "Check scores";
+   }
+ }
+ function csvCell(x) { return '"' + String(x ?? "").replace(/"/g,'""') + '"'; }
+ function exportCsv() {
+   const v=values();
+   if (v.total!==100 || v.scores.some(x=>!Number.isFinite(x)||x<0||x>5)) {
+     $("status").textContent="Cannot export a valid score yet. Make weights total 100% and keep scores between 0 and 5."; return;
+   }
+   const weighted=v.weights.reduce((sum,w,i)=>sum+w*v.scores[i]/5,0);
+   const rows=[["Field","Value"],
+     ["Review title",$("reviewTitle").value],["AI tool / model label",$("modelName").value],
+     ["Source material",$("source").value],["Reviewer label",$("reviewer").value],
+     ["Evidence summary",$("summary").value],["Weighted score out of 100",weighted.toFixed(1)],
+     ["Weight total (%)",v.total],["Criterion","Weight (%)","Score (0–5)","Weighted contribution","Evidence / notes"]];
+   names.forEach((name,i)=>rows.push([name,v.weights[i],v.scores[i],(v.weights[i]*v.scores[i]/5).toFixed(2),$("e"+i).value]));
+   rows.push(["Scoring note","Scores are reviewer judgments, not proof of correctness."]);
+   const csv=rows.map(row=>row.map(csvCell).join(",")).join("\r\n");
+   const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"});
+   const url=URL.createObjectURL(blob); const a=document.createElement("a");
+   a.href=url; a.download="curiolab-ai-output-review.csv"; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+   $("status").textContent="CSV export started.";
+ }
+ document.querySelectorAll('input[type="number"]').forEach(el=>el.addEventListener("input",update));
+ $("exportBtn").addEventListener("click",exportCsv);
+ $("resetBtn").addEventListener("click",()=>{
+   $("reviewTitle").value="";$("modelName").value="";$("source").value="";$("reviewer").value="";$("summary").value="";
+   const ws=[30,20,25,15,10];
+   names.forEach((_,i)=>{$("w"+i).value=ws[i];$("s"+i).value=3;$("e"+i).value="";});
+   update();$("status").textContent="Scorecard reset.";
+ });
+ update();
+})();
+</script>
+</body>
+</html>
