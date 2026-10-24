@@ -1,3 +1,5 @@
+
 User-agent: *
 Allow: /
-Sitemap: https://effulgent-trifle-d26725.netlify.app/sitemap.xml
+
+Sitemap: https://curiolab-2p9.pages.dev/sitemap.xml
